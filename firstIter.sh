@@ -122,8 +122,9 @@ garbage_collection() {
 
 }
 
-
-channel="https://www.youtube.com/user/nptelhrd/channels"
+#Ex. nptelhrd
+channel=$(echo $1)
+channel="https://www.youtube.com/user/${channel}/channels"
 file_gen
 get_ytid $channel
 scrape_ytid
