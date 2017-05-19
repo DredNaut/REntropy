@@ -1,24 +1,42 @@
 #!/bin/bash
+########################################################################
+########################################################################
+####                                                                  ##
+#### File Name:         firstIter.sh                                  ##
+####                                                                  ##
+#### Github Repo:       https://github.com/drednaut/REntropy.git      ##
+####                                                                  ##
+#### Author:            Jared Knutson                                 ##
+####                                                                  ##
+#### Email:             jaredknutson@nevada.unr.edu                   ##
+####                                                                  ##
+#### Date:              5/19/2017                                     ##
+####                                                                  ##
+#### Dependencies:      youtube-dl avconv                             ##
+####                                                                  ##
+#### Version:           0.4.0                                         ##
+####                                                                  ##  
+#### Usage:             ./firstIter.sh <User Channel>                 ## 
+####                                                                  ##
+#### Notes:                                                           ## 
+####                                                                  ##
+########################################################################
+########################################################################
 
-touch firstIter firstSnip firstClean data-video-ids clean-dvi
-rm firstIter firstSnip firstClean data-video-ids clean-dvi
 
-#create function to modify command line arguments to determine the type of seach the query to be made for
-
-#create function for editing strings delimited plus sign
-
-#make http request and download page for youtube search query
-
-
+#This function touches and then removes all the files dealt with by this script. 
+#This insure that all file contents begin the program empty.
 file_gen() {
 
-    touch clean-ytid clean_channel channel_raw temp_channel
-    rm clean-ytid clean_channel channel_raw temp_channel
+    touch firstIter firstSnip firstClean data-video-ids clean-dvi clean-ytid clean_channel channel_raw temp_channel
+
+    rm firstIter firstSnip firstClean data-video-ids clean-dvi  clean-ytid clean_channel channel_raw temp_channel
+
 
 }
 
 
-#------------------ARRAY TO FETCH IDS VALUES-------------
+#This function targets the original html dump and finds patterns which corrilate to the ytid values of the channels within the current channel.
 get_ytid() {
 
     wget -O firstIter $1
@@ -59,6 +77,8 @@ get_ytid() {
 }
 
 
+# This function formats the ytid pattern match result so that it can be used in the next iteration of this program.
+# The program uses awk and sed to accomplish this task.
 scrape_ytid() {
 
     awk '!a[$0]++' firstClean > channel-ytids
@@ -68,7 +88,8 @@ scrape_ytid() {
 }
 
 
-#------------------ARRAY TO FETCH CHANNEL TITLES-------------
+# This function targets the main html dump and searches for patterns which correspond to the title of the channels, within the channel. 
+# These patterns are output to a file called channel_raw.
 get_channel() {
 
     declare -a ARRAY
@@ -104,6 +125,8 @@ get_channel() {
 }
 
 
+# This function uses the file created by the get_channel function and formats the results contained in that file so that they represent the correct names of the channels, within the current channel.
+#This function outputs the corrected channel titles into a file named clean_channel
 scrape_channel() {
 
     awk '!a[$0]++' channel_raw > temp_channel
@@ -114,14 +137,14 @@ scrape_channel() {
 }
 
 
-#------------Collect Garbage------------------
+# As it's name suggests this function removes the temporary files which are used to format the final output.
 garbage_collection() {
 
     rm firstSnip firstClean channel-ytids channel_raw temp_channel
 
 }
 
-#Ex. nptelhrd
+#-------BEGIN PROGRAM------------
 channel=$(echo $1)
 channel="https://www.youtube.com/user/${channel}/channels"
 file_gen
@@ -129,3 +152,4 @@ get_ytid $channel
 scrape_ytid
 echo "Number of Channels found: $(wc -l clean_channel | awk '{print $1}')"
 garbage_collection
+#---------END PROGRAM-------------

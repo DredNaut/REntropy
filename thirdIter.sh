@@ -1,6 +1,31 @@
 #!/bin/bash
+########################################################################
+########################################################################
+####                                                                  ##
+#### File Name:         thirdIter.sh                                  ##
+####                                                                  ##
+#### Github Repo:       https://github.com/drednaut/REntropy.git      ##
+####                                                                  ##
+#### Author:            Jared Knutson                                 ##
+####                                                                  ##
+#### Email:             jaredknutson@nevada.unr.edu                   ##
+####                                                                  ##
+#### Date:              5/19/2017                                     ##
+####                                                                  ##
+#### Dependencies:      youtube-dl avconv                             ##
+####                                                                  ##
+#### Version:           0.4.0                                         ##
+####                                                                  ##  
+#### Usage:             ./thirdIter.sh <Sub-Channel>                  ## 
+####                                                                  ##
+#### Notes:                                                           ## 
+####                                                                  ##
+########################################################################
+########################################################################
 
 
+# Function takes as parameter line number of current playlist url extension.
+# Funtion echos a return value in the form of the channel name corresponding to the position of the current playlist url extension.
 get_channel() {
 
     name=$(sed -n "${1}p" clean_channel)
@@ -8,6 +33,9 @@ get_channel() {
 
 }
 
+
+# Function takes as parameter line number of current title of playlist and the current channel name being used.
+# Funtion echos a return value in the form of the playlist name corresponding to the position of the current playlist url extension.
 get_title() {
 
     name=$(sed -n "${1}p" ~/Programming/Bash/REntropy/results/${2}/clean_titles)
@@ -16,6 +44,9 @@ get_title() {
 }
 
 
+# Function takes in parameters channel name
+# Function calls get_title and youtube-dl
+# Function does not return a value but downloads the mp3 from the specified Youtube subchannel or if none are specified in the command line arguments it will start at the first subchannel in alphabetical order.
 get_audio() {
 
     base="https://www.youtube.com"
@@ -40,6 +71,9 @@ get_audio() {
 }
 
 
+# Function will possibly have the command line arguments as parameter, but will still operate to a default operation if none are specified
+# Function initiates the process of getting download.
+# Function does not return a value.
 download_controller() {
     
     if [ -z "$1" ]; then
@@ -58,5 +92,7 @@ download_controller() {
 }
 
 
+#-------BEGIN PROGRAM------------
 command=$(echo $1)
 download_controller $command
+#---------END PROGRAM-------------
