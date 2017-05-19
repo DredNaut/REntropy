@@ -3,14 +3,20 @@
 
 scrape_titles() {
 
+touch titles_raw results/${1}/clean_titles
+rm titles_raw results/${1}/clean_titles
 echo "Scraping Titles"
 grep -A 2 'feed-item-post' secondIter >> titles_raw
 sed -i 's/<\/p/<p/g' titles_raw
 sed -i 's/<p>/\$/g' titles_raw
-awk -F '$' '{print $2}' titles_raw >> clean_titles
-sed -i '$!N; /^\(.*\)\n\1$/!P; D' clean_titles
-sed -i '/^\s*$/d' clean_titles
-sed -i 's/ //g' clean_titles
+sed -i 's/-//g' titles_raw
+sed -i 's/_//g' titles_raw
+sed -i 's/(//g' titles_raw
+sed -i 's/)//g' titles_raw
+awk -F '$' '{print $2}' titles_raw >> results/${1}/clean_titles
+sed -i '$!N; /^\(.*\)\n\1$/!P; D' results/${1}/clean_titles
+sed -i '/^\s*$/d' results/${1}/clean_titles
+sed -i 's/ //g' results/${1}/clean_titles
 
 }
 
@@ -24,7 +30,6 @@ grep 'yt-uix-tile-link  spf-link  yt-ui' secondIter >> playlist_raw
 sed -i 's/"/\$/g' playlist_raw
 awk -F '$' '{print $14}' playlist_raw >> results/${1}/clean_playlists
 sed -i '/^\s*$/d' results/${1}/clean_playlists
-cat results/${1}/clean_playlists
 
 }
 
@@ -51,12 +56,13 @@ get_title_playlist() {
             touch playlist_raw secondIter 
             rm playlist_raw secondIter
             url=$base$line
+            echo ""
             echo "TID: $line"
             name=$(get_channel_name $line)
             echo "Current Channel: $name"
             wget -q -O secondIter $url
             mkdir -p results/${name}
-            scrape_titles
+            scrape_titles $name
             scrape_playlist $name
         done
 
@@ -67,8 +73,8 @@ get_title_playlist() {
 
 test_file() {
 
-    touch url.bat clean_playlist clean_titles
-    rm url.bat clean_playlist clean_titles 
+    touch url.bat clean_playlist clean_titles playlist_raw titles_raw
+    rm url.bat clean_playlist clean_titles playlist_raw titles_raw
 
 }
 
