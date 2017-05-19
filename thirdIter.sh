@@ -14,13 +14,15 @@ get_audio() {
     exec 10<&0
     fileName="results/${1}/clean_playlists"
     exec < $fileName
+    COUNTER=1
 
         trap "exit" INT
         while read line; do
             url=$base$line
+            mkdir ~/Programming/Bash/REntropy/results/${1}/$COUNTER
             echo "Current Channel: $1"
-            youtube-dl -o "~/Programming/Bash/REntropy/results/${1}/%(title)s.%(ext)s" --extract-audio --audio-format mp3 --audio-quality 0 $url
-            echo "Next"
+            youtube-dl -o "~/Programming/Bash/REntropy/results/${1}/$COUNTER/%(title)s.%(ext)s" --extract-audio --audio-format mp3 --audio-quality 0 $url
+            ((COUNTER++)) 
         done
 
     exec 10<&-
