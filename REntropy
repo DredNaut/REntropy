@@ -1,0 +1,93 @@
+#!/bin/bash
+########################################################################
+########################################################################
+####                                                                  ##
+#### File Name:         REntropy                                      ##
+####                                                                  ##
+#### Github Repo:       https://github.com/drednaut/REntropy.git      ##
+####                                                                  ##
+#### Author:            Jared Knutson                                 ##
+####                                                                  ##
+#### Email:             jaredknutson@nevada.unr.edu                   ##
+####                                                                  ##
+#### Date:              5/19/2017                                     ##
+####                                                                  ##
+#### Dependencies:      youtube-dl avconv                             ##
+####                                                                  ##
+#### Version:           0.4.0                                         ##
+####                                                                  ##  
+#### Usage:             ./REntropy                                    ## 
+####                                                                  ##
+#### Notes:                                                           ## 
+####                                                                  ##
+########################################################################
+########################################################################
+
+
+welcome() {
+
+    echo -e "\t\tREntropy Youtube Channel Scraper"
+    echo -e ''
+    echo -e "\t\t$(date)"
+    echo -e '' 
+    echo -e "SELECT AN OPTION TO CONTINUE:\n1)New Process\n2)Second Iteration\n3)Third Iteration\n"
+    read choice
+    case $choice in
+        1)
+            from_firstIter
+            ;;
+        2)
+            from_secondIter
+            ;;
+        3) 
+            from_thirdIter
+            ;;
+        *)
+            echo "Sorry your choice was not recognized.."
+            exit
+            ;;
+    esac
+
+}
+
+
+from_firstIter() {
+
+    echo "Enter the name of the channel you would like to download from: "
+    read channel
+    ./firstIter.sh $channel
+    echo "First Iteration   COMPLETE\nBeginning Second Iteration.."
+    ./secondIter.sh
+
+    echo "Enter the name of the subchannel (blank for null): "
+    read subchannel
+    ./thirdIter.sh $subchannel
+
+}
+
+
+from_secondIter() {
+
+    echo "Beginning Second Iteration.."
+    ./secondIter.sh
+
+    echo "Enter the name of the subchannel (blank for null): "
+    read subchannel
+    ./thirdIter.sh $subchannel
+
+}
+
+
+from_thirdIter() {
+
+    echo "Enter the name of the subchannel (blank for null): "
+    read subchannel
+    ./thirdIter.sh $subchannel
+
+}
+
+
+#-------BEGIN PROGRAM------------
+clear
+welcome
+#---------END PROGRAM-------------
