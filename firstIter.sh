@@ -12,8 +12,8 @@ rm firstIter firstSnip firstClean data-video-ids clean-dvi
 
 file_gen() {
 
-    touch clean-ytid clean_channel
-    rm clean-ytid clean_channel
+    touch clean-ytid clean_channel channel_raw temp_channel
+    rm clean-ytid clean_channel channel_raw temp_channel
 
 }
 
@@ -84,8 +84,7 @@ get_channel() {
     done
 
     exec 10<&-
-
-    regex="dir=\"ltr\" title=\"[a-Z0-9 -- _]*"
+    regex="dir=\"ltr\" title=\"[A-Za-z]*"
 
     ELEMENTS=${#ARRAY[@]}
     firstline=0
@@ -100,7 +99,6 @@ get_channel() {
             fi
         fi
     done
-
     scrape_channel
 
 }
@@ -120,7 +118,7 @@ scrape_channel() {
 #------------Collect Garbage------------------
 garbage_collection() {
 
-    rm firstSnip firstClean channel-ytids temp_channel channel_raw
+    rm firstSnip firstClean channel-ytids channel_raw temp_channel
 
 }
 

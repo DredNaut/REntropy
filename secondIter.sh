@@ -49,7 +49,7 @@ get_title_playlist() {
             name=$(get_channel_name $line)
             echo "Current Channel: $name"
             wget -q -O secondIter $url
-            mkdir results/${name}
+            mkdir -p results/${name}
             scrape_titles
             scrape_playlist $name
         done
