@@ -1,11 +1,20 @@
 #!/bin/bash
 
+
 get_channel() {
 
     name=$(sed -n "${1}p" clean_channel)
     echo $name
 
 }
+
+get_title() {
+
+    name=$(sed -n "${1}p" ~/Programming/Bash/REntropy/results/${2}/clean_titles)
+    echo $name
+
+}
+
 
 get_audio() {
 
@@ -19,15 +28,17 @@ get_audio() {
         trap "exit" INT
         while read line; do
             url=$base$line
-            mkdir ~/Programming/Bash/REntropy/results/${1}/$COUNTER
-            echo "Current Channel: $1"
-            youtube-dl -o "~/Programming/Bash/REntropy/results/${1}/$COUNTER/%(title)s.%(ext)s" --extract-audio --audio-format mp3 --audio-quality 0 $url
+            playlist=$(get_title $COUNTER $1)
+            mkdir ~/Programming/Bash/REntropy/results/${1}/${playlist}
+            echo "Current Playlist: $playlist"
+            youtube-dl -o "~/Programming/Bash/REntropy/results/${1}/$playlist/%(title)s.%(ext)s" --extract-audio --audio-format mp3 --audio-quality 0 $url
             ((COUNTER++)) 
         done
 
     exec 10<&-
 
 }
+
 
 download_controller() {
     
@@ -45,6 +56,7 @@ download_controller() {
     fi
 
 }
+
 
 command=$(echo $1)
 download_controller $command
