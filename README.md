@@ -16,5 +16,6 @@ git clone https://github.com.com/drednaut/REntropy.git
 ```
 
 ### ToDo
-- thirdIter.sh needs to be modified such that it can handle command line args.
-- firstIter.sh needs to be modified such that it takes in command line arguments pointing to the channel to scrape.
+- Test on other channels besides nptelhrd.
+- Make a single script to run all iterations.
+- Make the single script interactive for asking for channels.
