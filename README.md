@@ -2,19 +2,34 @@
 
 This application is written in BASH script.
 
-### No Installation Required
+### Installation
+To install dependancies on debian-based systems:
 ```
-// To the directory of your choice
+sudo apt-get install youtube-dl avconv
+```
+or for Arch users
+```
+sudo pacman -S youtube-dl avconv
+```
+```
+// Clone repository to the directory of your choice
 git clone https://github.com.com/drednaut/REntropy.git 
 ```
 
 ### Usage
 ```
+// Grabs the ytid's and channel titles from the specified user.
 ./firstIter.sh <User Channel>
+
+// Creates Directories based on the channel titles gathered in the first iteration.
+// Generates playlist tid's and sorts them into the correct directories.
 ./secondIter.sh
+
+// Scrapes the individual Youtube playlists using the command line tool youtube-dl.
 ./thirdIter.sh <Channel Within Channel Tab>
 ```
 
 ### ToDo
-- thirdIter.sh needs to be modified such that it can handle command line args.
-- firstIter.sh needs to be modified such that it takes in command line arguments pointing to the channel to scrape.
+- Test on other channels besides nptelhrd.
+- Make a single script to run all iterations.
+- Make the single script interactive for asking for channels.
