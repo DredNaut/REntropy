@@ -110,7 +110,6 @@ scrape_channel() {
     sed -i 's/\"/$/g' temp_channel
     awk -F '$' '{print $4}' temp_channel >> clean_channel
     sed -i 's/ //g' clean_channel
-    cat clean_channel
 
 }
 
@@ -128,4 +127,5 @@ channel="https://www.youtube.com/user/${channel}/channels"
 file_gen
 get_ytid $channel
 scrape_ytid
+echo "Number of Channels found: $(wc -l clean_channel | awk '{print $1}')"
 garbage_collection
