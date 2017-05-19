@@ -17,11 +17,14 @@ sed -i 's/ //g' clean_titles
 
 scrape_playlist() {
 
+touch results/${1}/clean_playlists
+rm results/${1}/clean_playlists
 echo "Scraping Playlists"
 grep 'yt-uix-tile-link  spf-link  yt-ui' secondIter >> playlist_raw
 sed -i 's/"/\$/g' playlist_raw
 awk -F '$' '{print $14}' playlist_raw >> results/${1}/clean_playlists
 sed -i '/^\s*$/d' results/${1}/clean_playlists
+cat results/${1}/clean_playlists
 
 }
 
@@ -45,7 +48,10 @@ get_title_playlist() {
     exec < $fileName
 
         while read line; do
+            touch playlist_raw secondIter 
+            rm playlist_raw secondIter
             url=$base$line
+            echo "TID: $line"
             name=$(get_channel_name $line)
             echo "Current Channel: $name"
             wget -q -O secondIter $url
