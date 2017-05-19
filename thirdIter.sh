@@ -18,9 +18,9 @@ get_audio() {
         trap "exit" INT
         while read line; do
             url=$base$line
-            sl -e
             echo "Current Channel: $1"
-            youtube-dl -o "~/Programming/Bash/Mustard-1.1/results/${1}/%(title)s.%(ext)s" --extract-audio --audio-format mp3 --audio-quality 0 $url >> dl.log
+            youtube-dl -o "~/Programming/Bash/REntropy/results/${1}/%(title)s.%(ext)s" --extract-audio --audio-format mp3 --audio-quality 0 $url
+            echo "Next"
         done
 
     exec 10<&-
@@ -29,7 +29,7 @@ get_audio() {
 
 download_controller() {
     
-    if [ -z "${BASH_ARGV[1]}" ]; then
+    if [ -z "$1" ]; then
         COUNTER=1
         MAX=$(wc -l clean_channel | awk '{print $1}')
 
@@ -39,9 +39,10 @@ download_controller() {
             let COUNTER=COUNTER+1
         done
     else
-        get_audio ${BASH_ARGV[1]}
+        get_audio $1
     fi
 
 }
 
-download_controller
+command=$(echo $1)
+download_controller $command
