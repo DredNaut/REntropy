@@ -40,4 +40,4 @@ Scrapes the individual Youtube playlists using the command line tool youtube-dl.
 ### ToDo
 - Test on other channels besides nptelhrd.
 - Error-handling for command line arguments issued for firstIter.sh and thirdIter.sh.
-- Implement the current program in gui form using python.
+- Implement the current program in gui form using python tkinter.
