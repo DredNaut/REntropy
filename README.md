@@ -1,6 +1,6 @@
 # REntropy
 
-This application is written in BASH script.
+This application's backend is written in BASH script, frontend wrriten in Python using the module  tkinter.
 
 ### Installation
 To install dependancies on debian-based systems:
@@ -21,6 +21,10 @@ Run REntropy from the command line and the program will take you through the dow
 ```
 ./REntropy
 ```
+Or you can try out the new gui verion (requires python3 tkinter):
+```
+python REntropy.py
+```
 ### Explaination
 The code is well documented so refer to code for any specific inqueries.
 Grabs the ytid's and channel titles from the specified user.
@@ -38,6 +42,8 @@ Scrapes the individual Youtube playlists using the command line tool youtube-dl.
 ```
 
 ### ToDo
-- Test on other channels besides nptelhrd.
 - Error-handling for command line arguments issued for firstIter.sh and thirdIter.sh.
-- Implement the current program in gui form using python tkinter.
+- Create a playlist fetching script, script for fetching single video, and search results.
+- Optomize the gui to show errors and successes
+- Create a good looking ui.
+- Interactive gui: user should not be able to perform multiple searches at a single time. After searching goto a loading screen until the download finishes.
