@@ -30,7 +30,7 @@
 get_audio() {
 
             url=$1
-            youtube-dl -o "~/Programming/Bash/REntropy/results/${2}%(title)s.%(ext)s" --extract-audio --audio-format mp3 --audio-quality 0 $url
+            youtube-dl -o "~/Programming/Bash/REntropy/results/${2}/%(title)s.%(ext)s" --extract-audio --audio-format mp3 --audio-quality 0 $url
         done
 
 }

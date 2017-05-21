@@ -37,7 +37,7 @@ get_audio() {
         trap "exit" INT
         while read line; do
             url=$line
-            youtube-dl -o "${2}%(title)s.%(ext)s" --extract-audio --audio-format mp3 --audio-quality 0 $url
+            youtube-dl -o "${2}/%(title)s.%(ext)s" --extract-audio --audio-format mp3 --audio-quality 0 $url
         done
 
     exec 10<&-
