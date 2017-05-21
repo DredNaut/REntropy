@@ -4,9 +4,10 @@ import os
 
 
 class Application(Frame):
+
     def first_iteration(self):
         userData = self.entry1.get()
-        cmd = "./firstIter.sh "+userData+"&"
+        cmd = "./firstIter.sh "+userData+" &"
         os.system(cmd)
 
     def second_iteration(self):
@@ -15,7 +16,19 @@ class Application(Frame):
 
     def third_iteration(self):
         userData = self.entry2.get()
-        cmd = "./thirdIter.sh "+userData+"&"
+        cmd = "./thirdIter.sh "+userData+" &"
+        os.system(cmd)
+
+    def by_video(self):
+        url = self.entry3.get()
+        filepath = self.entry4.get()
+        cmd = "./by_video.sh "+url+" "+filepath+" &"
+        os.system(cmd)
+
+    def by_batch(self):
+        batch = self.entry5.get()
+        filepath = self.entry6.get()
+        cmd = "./by_batch.sh "+batch+" "+filepath+" &"
         os.system(cmd)
 
 
@@ -31,6 +44,10 @@ class Application(Frame):
         # ----------- LABEL -------------
         self.header1 = Label(self.tab0, text="About this Application") 
         self.header1.grid(row=1)
+        self.about1 = Label(self.tab0, text="Choose which type of download you would like to perform.") 
+        self.about1.grid(row=2)
+        self.about2 = Label(self.tab0, text="Make sure to give the full file path. When specified for output path.") 
+        self.about2.grid(row=3)
 
     # ------------- TAB CHANNEL -------------------
         self.tab1 = Frame(self.note)
@@ -87,6 +104,50 @@ class Application(Frame):
         self.header3 = Label(self.tab3, text="Download by Video")
         self.header3.grid(row=1)
 
+        self.descr1= Label(self.tab3, text="Video URL")
+        self.descr1.grid(row=2, sticky='w')
+        self.descr2 = Label(self.tab3, text="Output Filepath")
+        self.descr2.grid(row=3, sticky='w')
+
+        # -----------BUTTONS -----------------
+        self.downVid = Button(self.tab3)
+        self.downVid["text"] = "Begin Download"
+        self.downVid["command"] = self.by_video
+        self.downVid.grid(row=4, column=1)
+
+        # -------- ENTRY --------------------
+        self.entry3 = Entry(self.tab3)
+        self.entry3.grid(row=2, column=1)
+
+        self.entry4 = Entry(self.tab3)
+        self.entry4.grid(row=3, column=1)
+
+    # ------------- TAB BATCH -------------------
+        self.tab4 = Frame(self.note)
+        self.note.add(self.tab4, text="By Batch")
+
+        # ----------- LABEL -------------
+        self.header4 = Label(self.tab4, text="Download Batch Job") 
+        self.header4.grid(row=1)
+
+        self.descr3= Label(self.tab4, text="Batch File")
+        self.descr3.grid(row=2, sticky='w')
+        self.descr4= Label(self.tab4, text="Output Filepath")
+        self.descr4.grid(row=3, sticky='w')
+
+        # -----------BUTTONS -----------------
+        self.downVid = Button(self.tab4)
+        self.downVid["text"] = "Begin Download"
+        self.downVid["command"] = self.by_batch
+        self.downVid.grid(row=4, column=1)
+
+        # -------- ENTRY --------------------
+        self.entry5 = Entry(self.tab4)
+        self.entry5.grid(row=2, column=1)
+
+        self.entry6 = Entry(self.tab4)
+        self.entry6.grid(row=3, column=1)
+
 
         self.note.grid(row=0)
 
@@ -99,7 +160,6 @@ class Application(Frame):
 # ------ MAIN ----------
 root = Tk()
 root.title("REntropy - Youtube Scraper")
-root.iconbitmap('favicon.ico')
 app = Application(master=root)
 app.mainloop()
 root.destroy()
