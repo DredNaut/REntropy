@@ -1,9 +1,15 @@
 from tkinter import *
 from tkinter import ttk
+from tkFileDialog import askdirectory
 import os
 
 
 class Application(Frame):
+
+    def ask_directory(self):
+        dirname = askdirectory()
+        if dirname:
+            self.var.set(dirname)
 
     def first_iteration(self):
         userData = self.entry1.get()
@@ -108,10 +114,12 @@ class Application(Frame):
         self.playlist2.grid(row=3, sticky='w')
 
         # -------- ENTRY --------------------
+        self.var = StringVar(self)
+
         self.playentry1 = Entry(self.tab2)
         self.playentry1.grid(row=2, column=1)
 
-        self.playentry2 = Entry(self.tab2)
+        self.playentry2 = Entry(self.tab2, textvariable=self.var)
         self.playentry2.grid(row=3, column=1)
         
         # -----------BUTTONS -----------------
@@ -119,6 +127,11 @@ class Application(Frame):
         self.downVid1["text"] = "Begin Download"
         self.downVid1["command"] = self.by_playlist
         self.downVid1.grid(row=4, column=1)
+
+        self.browse1 = Button(self.tab2)
+        self.browse1["text"] = "Browse.."
+        self.browse1["command"] = self.ask_directory
+        self.browse1.grid(row=3, column=2)
 
 
     # ------------- TAB VIDEO -------------------
@@ -140,11 +153,16 @@ class Application(Frame):
         self.downVid["command"] = self.by_video 
         self.downVid.grid(row=4, column=1)
 
+        self.browse2 = Button(self.tab3)
+        self.browse2["text"] = "Browse.."
+        self.browse2["command"] = self.ask_directory
+        self.browse2.grid(row=3, column=2)
+
         # -------- ENTRY --------------------
         self.entry3 = Entry(self.tab3)
         self.entry3.grid(row=2, column=1)
 
-        self.entry4 = Entry(self.tab3)
+        self.entry4 = Entry(self.tab3, textvariable=self.var)
         self.entry4.grid(row=3, column=1)
 
 
@@ -167,11 +185,16 @@ class Application(Frame):
         self.downVid["command"] = self.by_batch
         self.downVid.grid(row=4, column=1)
 
+        self.browse3 = Button(self.tab4)
+        self.browse3["text"] = "Browse.."
+        self.browse3["command"] = self.ask_directory
+        self.browse3.grid(row=3, column=2)
+
         # -------- ENTRY --------------------
         self.entry5 = Entry(self.tab4)
         self.entry5.grid(row=2, column=1)
 
-        self.entry6 = Entry(self.tab4)
+        self.entry6 = Entry(self.tab4, textvariable=self.var)
         self.entry6.grid(row=3, column=1)
 
 
@@ -183,8 +206,10 @@ class Application(Frame):
         self.pack()
         self.createWidgets()
 
+
 # ------ MAIN ----------
 root = Tk()
+root.resizable(0,0)
 root.title("REntropy - Youtube Scraper")
 app = Application(master=root)
 app.mainloop()
