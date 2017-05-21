@@ -7,28 +7,34 @@ class Application(Frame):
 
     def first_iteration(self):
         userData = self.entry1.get()
-        cmd = "./firstIter.sh "+userData+" &"
+        cmd = "./firstIter.sh "+userData
         os.system(cmd)
 
     def second_iteration(self):
-        cmd = "./secondIter.sh &"
+        cmd = "./secondIter.sh"
         os.system(cmd)
 
     def third_iteration(self):
         userData = self.entry2.get()
-        cmd = "./thirdIter.sh "+userData+" &"
+        cmd = "./thirdIter.sh "+userData
         os.system(cmd)
 
     def by_video(self):
         url = self.entry3.get()
         filepath = self.entry4.get()
-        cmd = "./by_video.sh "+url+" "+filepath+" &"
+        cmd = "./by_video.sh "+url+" "+filepath
+        os.system(cmd)
+
+    def by_playlist(self):
+        url = self.playentry1.get()
+        filepath = self.playentry2.get()
+        cmd = "./by_playlist.sh "+url+" "+filepath
         os.system(cmd)
 
     def by_batch(self):
         batch = self.entry5.get()
         filepath = self.entry6.get()
-        cmd = "./by_batch.sh "+batch+" "+filepath+" &"
+        cmd = "./by_batch.sh "+batch+" "+filepath
         os.system(cmd)
 
 
@@ -48,6 +54,7 @@ class Application(Frame):
         self.about1.grid(row=2)
         self.about2 = Label(self.tab0, text="Make sure to give the full file path. When specified for output path.") 
         self.about2.grid(row=3)
+
 
     # ------------- TAB CHANNEL -------------------
         self.tab1 = Frame(self.note)
@@ -95,6 +102,24 @@ class Application(Frame):
         self.header2 = Label(self.tab2, text="Download by Playlist")
         self.header2.grid(row=1)
 
+        self.playlist1= Label(self.tab2, text="Playlist URL")
+        self.playlist1.grid(row=2, sticky='w')
+        self.playlist2 = Label(self.tab2, text="Output Filepath")
+        self.playlist2.grid(row=3, sticky='w')
+
+        # -------- ENTRY --------------------
+        self.playentry1 = Entry(self.tab2)
+        self.playentry1.grid(row=2, column=1)
+
+        self.playentry2 = Entry(self.tab2)
+        self.playentry2.grid(row=3, column=1)
+        
+        # -----------BUTTONS -----------------
+        self.downVid1 = Button(self.tab2)
+        self.downVid1["text"] = "Begin Download"
+        self.downVid1["command"] = self.by_playlist
+        self.downVid1.grid(row=4, column=1)
+
 
     # ------------- TAB VIDEO -------------------
         self.tab3 = Frame(self.note)
@@ -112,7 +137,7 @@ class Application(Frame):
         # -----------BUTTONS -----------------
         self.downVid = Button(self.tab3)
         self.downVid["text"] = "Begin Download"
-        self.downVid["command"] = self.by_video
+        self.downVid["command"] = self.by_video 
         self.downVid.grid(row=4, column=1)
 
         # -------- ENTRY --------------------
@@ -121,6 +146,7 @@ class Application(Frame):
 
         self.entry4 = Entry(self.tab3)
         self.entry4.grid(row=3, column=1)
+
 
     # ------------- TAB BATCH -------------------
         self.tab4 = Frame(self.note)
