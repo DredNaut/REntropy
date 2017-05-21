@@ -17,11 +17,11 @@ git clone https://github.com.com/drednaut/REntropy.git
 ```
 
 ### Usage
-Run REntropy from the command line and the program will take you through the download process.
+Run REntropy cli version:
 ```
 ./REntropy
 ```
-Or you can try out the new gui verion (requires python3 tkinter):
+Or you can use gui version (requires python3 tkinter):
 ```
 python REntropy.py
 ```
@@ -43,7 +43,5 @@ Scrapes the individual Youtube playlists using the command line tool youtube-dl.
 
 ### ToDo
 - Error-handling for command line arguments issued for firstIter.sh and thirdIter.sh.
-- Create a playlist fetching script, script for fetching single video, and search results.
 - Optimize the gui to show errors and successes
-- Create a good looking ui.
 - Interactive gui: user should not be able to perform multiple searches at a single time. After searching goto a loading screen until the download finishes.
