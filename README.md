@@ -44,6 +44,6 @@ Scrapes the individual Youtube playlists using the command line tool youtube-dl.
 ### ToDo
 - Error-handling for command line arguments issued for firstIter.sh and thirdIter.sh.
 - Create a playlist fetching script, script for fetching single video, and search results.
-- Optomize the gui to show errors and successes
+- Optimize the gui to show errors and successes
 - Create a good looking ui.
 - Interactive gui: user should not be able to perform multiple searches at a single time. After searching goto a loading screen until the download finishes.
