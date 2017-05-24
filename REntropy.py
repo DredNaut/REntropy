@@ -1,13 +1,38 @@
+########################################################################
+########################################################################
+####                                                                  ##
+#### File Name:         REntropy.py                                   ##
+####                                                                  ##
+#### Github Repo:       https://github.com/drednaut/REntropy.git      ##
+####                                                                  ##
+#### Author:            Jared Knutson                                 ##
+####                                                                  ##
+#### Email:             jaredknutson@nevada.unr.edu                   ##
+####                                                                  ##
+#### Date:              5/19/2017                                     ##
+####                                                                  ##
+#### Dependencies:      python3-tkinter                               ##
+####                                                                  ##
+#### Version:           0.4.0                                         ##
+####                                                                  ##  
+#### Usage:             python REntropy.py                            ## 
+####                                                                  ##
+#### Notes:                                                           ## 
+####                                                                  ##
+########################################################################
+########################################################################
+
 from tkinter import *
 from tkinter import ttk
-from tkFileDialog import askdirectory
+from tkinter import filedialog
+import subprocess as sub
 import os
 
 
 class Application(Frame):
 
     def ask_directory(self):
-        dirname = askdirectory()
+        dirname = filedialog.askdirectory()
         if dirname:
             self.var.set(dirname)
 
@@ -29,7 +54,9 @@ class Application(Frame):
         url = self.entry3.get()
         filepath = self.entry4.get()
         cmd = "./by_video.sh "+url+" "+filepath
-        os.system(cmd)
+        p = sub.Popen(cmd, stdout=sub.PIPE, stderr=sub.PIPE)
+        output, errors = p.communicate()
+        #os.system(cmd)
 
     def by_playlist(self):
         url = self.playentry1.get()
@@ -54,12 +81,9 @@ class Application(Frame):
         self.note.add(self.tab0, text="About")
         
         # ----------- LABEL -------------
-        self.header1 = Label(self.tab0, text="About this Application") 
-        self.header1.grid(row=1)
-        self.about1 = Label(self.tab0, text="Choose which type of download you would like to perform.") 
-        self.about1.grid(row=2)
-        self.about2 = Label(self.tab0, text="Make sure to give the full file path. When specified for output path.") 
-        self.about2.grid(row=3)
+        self.header1 = Label(self.tab0, text="About this Application").grid(row=1, columnspan=3)
+        self.about1 = Label(self.tab0, text="Choose which type of download you would like to perform.").grid(row=2) 
+        self.about2 = Label(self.tab0, text="Make sure to give the full file path. When specified for output path.").grid(row=3) 
 
 
     # ------------- TAB CHANNEL -------------------
@@ -68,7 +92,7 @@ class Application(Frame):
 
         # ----------- LABEL -------------
         self.header1 = Label(self.tab1, text="Download by Channel")
-        self.header1.grid(row=1)
+        self.header1.grid(row=1, columnspan=3)
 
         # -----------BUTTONS -----------------
         self.firstI = Button(self.tab1)
@@ -106,7 +130,7 @@ class Application(Frame):
 
         # ------------ LABEL --------------
         self.header2 = Label(self.tab2, text="Download by Playlist")
-        self.header2.grid(row=1)
+        self.header2.grid(row=1, columnspan=3)
 
         self.playlist1= Label(self.tab2, text="Playlist URL")
         self.playlist1.grid(row=2, sticky='w')
@@ -140,7 +164,7 @@ class Application(Frame):
 
         # ------------ LABEL --------------
         self.header3 = Label(self.tab3, text="Download by Video")
-        self.header3.grid(row=1)
+        self.header3.grid(row=1, columnspan=3)
 
         self.descr1= Label(self.tab3, text="Video URL")
         self.descr1.grid(row=2, sticky='w')
@@ -159,11 +183,8 @@ class Application(Frame):
         self.browse2.grid(row=3, column=2)
 
         # -------- ENTRY --------------------
-        self.entry3 = Entry(self.tab3)
-        self.entry3.grid(row=2, column=1)
-
-        self.entry4 = Entry(self.tab3, textvariable=self.var)
-        self.entry4.grid(row=3, column=1)
+        self.entry3 = Entry(self.tab3).grid(row=2, column=1)
+        self.entry4 = Entry(self.tab3, textvariable=self.var).grid(row=3, column=1)
 
 
     # ------------- TAB BATCH -------------------
@@ -172,7 +193,7 @@ class Application(Frame):
 
         # ----------- LABEL -------------
         self.header4 = Label(self.tab4, text="Download Batch Job") 
-        self.header4.grid(row=1)
+        self.header4.grid(row=1, columnspan=3)
 
         self.descr3= Label(self.tab4, text="Batch File")
         self.descr3.grid(row=2, sticky='w')
