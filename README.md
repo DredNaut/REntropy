@@ -5,7 +5,7 @@ This application's backend is written in BASH script, frontend wrriten in Python
 ### Installation
 To install dependancies on debian-based systems:
 ```
-sudo apt-get install git youtube-dl avconv
+sudo apt-get install git youtube-dl avconv python3-tk
 ```
 or for Arch users
 ```
@@ -23,7 +23,7 @@ Run REntropy cli version:
 ```
 Or you can use gui version (requires python3 tkinter):
 ```
-python REntropy.py
+python3 REntropy.py
 ```
 ### Explaination
 The code is well documented so refer to code for any specific inqueries.
